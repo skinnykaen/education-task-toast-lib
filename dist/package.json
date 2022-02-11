@@ -1,0 +1,7 @@
+{
+  "name": "toast-lib",
+  "main": "bundles/bundle.js",
+  "peerDependencies": {
+    "react": "^16.13.1"
+  }
+}
