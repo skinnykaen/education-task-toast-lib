@@ -38,5 +38,7 @@
     "rollup-plugin-url": "^3.0.1",
     "styled-components": "^5.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-draggable": "^4.4.4"
+  }
 }

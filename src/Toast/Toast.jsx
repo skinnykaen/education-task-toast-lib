@@ -11,13 +11,14 @@ import {
   ToastImage,
   CloseButton,
 } from "./component";
+import Draggable from "react-draggable";
 
 export const Toast = (props) => {
   const { toasts, commonProp } = props;
   const [toastItems, setToasts] = useState([toasts]);
 
   useEffect(() => {
-    setToasts([...toasts])
+    setToasts([...toasts]);
   }, [toasts]);
 
   useEffect(() => {
@@ -32,35 +33,42 @@ export const Toast = (props) => {
     };
   }, [toasts, toastItems, commonProp.showDuration, commonProp.autoDelete])
 
-  function deleteToast(key) {
-    toasts.splice(key, 1);
-    toastItems.splice(key, 1);
+  function deleteToast(id) {
+    toasts.splice(toasts.findIndex(e => e.id === id), 1);
+    toastItems.splice(toastItems.findIndex(e => e.id === id), 1);
     setToasts([...toastItems]);
   }
 
+  function onStop(e, id){
+    console.log(e)
+  }
+
   return (
-      <ToastContainer common={commonProp}>
-        {
-          toastItems.map((e, i) => {
-            return (
-                <ToastWrapper common={commonProp} key={i}>
-                  <TypeHeading>{e.type + commonProp.heading}</TypeHeading>
-                  <ToastContent e={e} common={commonProp}>
-                    <ToastDescription>
-                      <ToastImage e={e}>
-                        <img src={e.icon} />
-                      </ToastImage>
-                      {e.type + commonProp.description}
-                    </ToastDescription>
-                    <CloseButton onClick={()=> {deleteToast(i)}}>
-                      <img src={closeIcon} alt='close'/>
-                    </CloseButton>
-                  </ToastContent>
-                </ToastWrapper>
-            )
-          })
-        }
-      </ToastContainer>
+    <ToastContainer common={commonProp}>
+
+      {
+        toastItems.map((e, i) => {
+          return (
+            <Draggable axis="x"  onStop={(event) => {  deleteToast(e.id)}} key={i}>
+              <ToastWrapper common={commonProp} >
+                <TypeHeading>{e.type + commonProp.heading}</TypeHeading>
+                <ToastContent e={e} common={commonProp}>
+                  <ToastDescription>
+                    <ToastImage e={e}>
+                      <img src={e.icon} />
+                    </ToastImage>
+                    {e.type + commonProp.description}
+                  </ToastDescription>
+                  <CloseButton onClick={() => { deleteToast(e.id) }}>
+                    <img src={closeIcon} alt='close' />
+                  </CloseButton>
+                </ToastContent>
+              </ToastWrapper>
+            </Draggable>
+          )
+        })
+      }
+    </ToastContainer>
   );
 };
 

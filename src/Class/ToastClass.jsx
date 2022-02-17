@@ -17,6 +17,7 @@ const WARNING_COLOR = '#FFA500'
 class _Toast {
   constructor(toasts) {
     this.toasts = toasts;
+    this.state = {id: 0};
   }
 
   // to do drop
@@ -28,6 +29,8 @@ class _Toast {
       this[args.type].textColor = args.textColor ? args.textColor : this[args.type].textColor;
       this[args.type].icon = args.icon ? args.icon :this[args.type].icon ;
     }
+    this.state.id = ++this.state.id;
+    this[args.type].id = this.state.id;
     return { ...this[args.type] };
   }
 
@@ -77,24 +80,28 @@ class _Toast {
   }
 
   error = {
+    id: '',
     type: 'error',
     backgroundColor: ERROR_COLOR,
     textColor: 'white',
     icon: errorIcon,
   }
   warning = {
+    id: '',
     type: 'warning',
     backgroundColor: WARNING_COLOR,
     textColor: 'black',
     icon: warningIcon,
   }
   info = {
+    id: '',
     type: 'info',
     backgroundColor: INFO_COLOR,
     textColor: 'white',
     icon: infoIcon,
   }
   success = {
+    id: '',
     type: 'success',
     backgroundColor: SUCCESS_COLOR,
     textColor: 'white',
