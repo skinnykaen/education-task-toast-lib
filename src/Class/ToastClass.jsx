@@ -9,15 +9,20 @@ import successIcon from "../assets/success_icon.png";
 
 let toasts = [];
 
+const ERROR_COLOR = '#CD5C5C';
+const SUCCESS_COLOR = '#6B8E23';
+const INFO_COLOR = '#87CEFA';
+const WARNING_COLOR = '#FFA500'
+
 class _Toast {
   constructor(toasts) {
     this.toasts = toasts;
   }
 
-  // to do показывать последние, drop
+  // to do drop
 
   objectOfProperties(args) {
-    // change backgroundColor && colorText for type
+    // change backgroundColor && colorText &&  for type
     if (toasts.length && toasts[toasts.length - 1].type === args.type) {
       this[args.type].backgroundColor = args.backgroundColor ? args.backgroundColor : this[args.type].backgroundColor;
       this[args.type].textColor = args.textColor ? args.textColor : this[args.type].textColor;
@@ -73,26 +78,26 @@ class _Toast {
 
   error = {
     type: 'error',
-    backgroundColor: 'red',
-    colorText: 'white',
+    backgroundColor: ERROR_COLOR,
+    textColor: 'white',
     icon: errorIcon,
   }
   warning = {
     type: 'warning',
-    backgroundColor: 'yellow',
-    colorText: 'black',
+    backgroundColor: WARNING_COLOR,
+    textColor: 'black',
     icon: warningIcon,
   }
   info = {
     type: 'info',
-    backgroundColor: 'blue',
-    colorText: 'white',
+    backgroundColor: INFO_COLOR,
+    textColor: 'white',
     icon: infoIcon,
   }
   success = {
     type: 'success',
-    backgroundColor: 'green',
-    colorText: 'white',
+    backgroundColor: SUCCESS_COLOR,
+    textColor: 'white',
     icon: successIcon,
   }
   create(args) {

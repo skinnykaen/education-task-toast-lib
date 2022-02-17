@@ -13,7 +13,6 @@ export const ToastWrapper = styled.div`
     margin: 5%; 
     box-sizing: border-box;
     width: 25vw;
-    height: 20vh;
 
     margin-bottom: 40px;
 
@@ -66,7 +65,8 @@ export const ToastWrapper = styled.div`
 
 export const ToastContent = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     wigth: 100%;
     height: 100%;
 
@@ -80,9 +80,10 @@ export const ToastContent = styled.div`
 export const ToastDescription = styled.div`
     display: flex; 
     align-items: center;
-    width: 100%;
+    width: 90%;
     height: 70%;
     font-size: 1.3rem;
+    overflow: hidden;
 `
 
 export const TypeHeading = styled.div`
@@ -96,8 +97,8 @@ export const CloseButton = styled.div`
     cursor: pointer;
 
     img {
-        width: 25px;
-        height: 25px;
+        width: 15px;
+        height: 15px;
     }
 `
 
