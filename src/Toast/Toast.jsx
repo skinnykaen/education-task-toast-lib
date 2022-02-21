@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import closeIcon from '../assets/close_icon.png';
 import PropTypes from "prop-types";
+import { toast as toastService} from './../ToastService/ToastService'
 
 import {
   ToastWrapper,
@@ -24,7 +25,7 @@ export const Toast = (props) => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (commonProp.autoDelete && toasts.length && toastItems.length) {
-        deleteToast()
+        deleteToast(toasts[0].ID)
       }
     }, commonProp.showDuration)
 
@@ -34,32 +35,30 @@ export const Toast = (props) => {
   }, [toasts, toastItems, commonProp.showDuration, commonProp.autoDelete])
 
   function deleteToast(id) {
-    toasts.splice(toasts.findIndex(e => e.id === id), 1);
-    toastItems.splice(toastItems.findIndex(e => e.id === id), 1);
+    // toasts.splice(toasts.findIndex(toast => toast.ID === id), 1);
+    toastService.deleteToast(id)
+    toastItems.splice(toastItems.findIndex(toast => toast.ID === id), 1);
     setToasts([...toastItems]);
-  }
-
-  function onStop(e, id){
-    console.log(e)
   }
 
   return (
     <ToastContainer common={commonProp}>
 
       {
-        toastItems.map((e, i) => {
+        toastItems.map((toast, i) => {
+          console.log(toast)
           return (
-            <Draggable axis="x"  onStop={(event) => {  deleteToast(e.id)}} key={i}>
+            <Draggable axis="x" key={i} >
               <ToastWrapper common={commonProp} >
-                <TypeHeading>{e.type + commonProp.heading}</TypeHeading>
-                <ToastContent e={e} common={commonProp}>
+                <TypeHeading>{toast.TYPE + commonProp.heading}</TypeHeading>
+                <ToastContent toast={toast} common={commonProp}>
                   <ToastDescription>
-                    <ToastImage e={e}>
-                      <img src={e.icon} />
+                    <ToastImage toast={toast}>
+                      <img src={toast.ICON} />
                     </ToastImage>
-                    {e.type + commonProp.description}
+                    {toast.TYPE + commonProp.description}
                   </ToastDescription>
-                  <CloseButton onClick={() => { deleteToast(e.id) }}>
+                  <CloseButton onClick={() => { deleteToast(toast.ID) }}>
                     <img src={closeIcon} alt='close' />
                   </CloseButton>
                 </ToastContent>
@@ -72,18 +71,9 @@ export const Toast = (props) => {
   );
 };
 
-Toast.defaultProps = {
-  // position: "bottom-right",
-  // autoDelete: false,
-};
+// onStop={() => {deleteToast(toast.ID)
 
 Toast.propTypes = {
   toasts: PropTypes.array.isRequired,
-  // position: PropTypes.string,
-  // autoDelete: PropTypes.bool,
-  // showDuration: PropTypes.number,
-  // color: PropTypes.string,
-  // padding: PropTypes.string,
   commonProp: PropTypes.object,
-  // animation: PropTypes.string,
 };

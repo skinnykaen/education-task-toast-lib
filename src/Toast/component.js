@@ -71,9 +71,9 @@ export const ToastContent = styled.div`
     height: 100%;
 
     padding: ${({ common }) => common.padding};
-    background-color: ${({ e }) => e.backgroundColor};
+    background-color: ${({ toast }) => toast.BACKGROUND_COLOR};
     border-radius: 10px;
-    color: ${({ e }) => e.textColor};
+    color: ${({ toast }) => toast.TEXT_COLOR};
     transition: transform 0.6s ease-in-out;
 `
 

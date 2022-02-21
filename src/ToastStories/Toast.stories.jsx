@@ -1,4 +1,4 @@
-import { toast } from "./../Class/ToastClass";
+import { toast } from "../ToastService/ToastService";
 
 export default {
   title: 'Toast',
@@ -69,7 +69,7 @@ export default {
   }
 };
 
-export const ToastDefault = (args) => toast.create(args)
+export const ToastDefault = (args) => toast.call(args)
 
 ToastDefault.args = {
   type: 'info',
