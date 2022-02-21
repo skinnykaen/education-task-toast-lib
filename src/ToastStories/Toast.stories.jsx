@@ -69,7 +69,7 @@ export default {
   }
 };
 
-export const ToastDefault = (args) => toast.call(args)
+export const ToastDefault = (args) => toast.add(args)
 
 ToastDefault.args = {
   type: 'info',

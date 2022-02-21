@@ -35,7 +35,6 @@ export const Toast = (props) => {
   }, [toasts, toastItems, commonProp.showDuration, commonProp.autoDelete])
 
   function deleteToast(id) {
-    // toasts.splice(toasts.findIndex(toast => toast.ID === id), 1);
     toastService.deleteToast(id)
     toastItems.splice(toastItems.findIndex(toast => toast.ID === id), 1);
     setToasts([...toastItems]);
@@ -46,7 +45,6 @@ export const Toast = (props) => {
 
       {
         toastItems.map((toast, i) => {
-          console.log(toast)
           return (
             <Draggable axis="x" key={i} >
               <ToastWrapper common={commonProp} >
@@ -70,8 +68,6 @@ export const Toast = (props) => {
     </ToastContainer>
   );
 };
-
-// onStop={() => {deleteToast(toast.ID)
 
 Toast.propTypes = {
   toasts: PropTypes.array.isRequired,

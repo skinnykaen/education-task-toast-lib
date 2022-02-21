@@ -3,19 +3,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Toast } from "../Toast/Toast";
 import { Portal } from "../Toast/Portal";
-import ErrorBoundary from './../components/ErrorBoundary'
+import ErrorBoundary from '../compoments/ErrorBoundary'
 
 import { MAX_TOAST_LENGTH, ERROR_TOAST, INFO_TOAST, SUCCESS_TOAST, WARNING_TOAST } from '../constants/toast';
 import { TOAST_POSITIONS } from '../constants/toastPosition';
-
-let toasts = [];
 
 class ToastLib {
   constructor() {
     if (typeof ToastLib.instance === 'object') {
       return ToastLib.instance
     }
-    this.toasts = []
+    this.toasts = [];
+    this.commonProp = {};
     ToastLib.instance = this
     return this
   }
@@ -27,7 +26,7 @@ class ToastLib {
 
   objectOfProperties(args) {
     // change backgroundColor && colorText &&  for type
-    if (toasts.length && toasts[toasts.length - 1].TYPE === args.type) {
+    if (this.toasts.length && this.toasts[this.toasts.length - 1].TYPE === args.type) {
       this[args.type].BACKGROUND_COLOR = args.backgroundColor ? args.backgroundColor : this[args.type].BACKGROUND_COLOR;
       this[args.type].TEXT_COLOR = args.textColor ? args.textColor : this[args.type].TEXT_COLOR;
       this[args.type].ICON = args.icon ? args.icon : this[args.type].ICON;
@@ -52,23 +51,27 @@ class ToastLib {
     this.toasts.splice(this.toasts.findIndex(toast => toast.ID === id), 1);
   }
 
-  call(args) {
-    if (toasts.length < MAX_TOAST_LENGTH) {
-      toasts = [...toasts, this.objectOfProperties(args)];
+  add(args) {
+    if (this.toasts.length < MAX_TOAST_LENGTH) {
+      this.toasts = [...this.toasts, this.objectOfProperties(args)];
     } else {
-      toasts = [...toasts.splice(1), this.objectOfProperties(args)];
+      this.toasts = [...this.toasts.splice(1), this.objectOfProperties(args)];
     }
+    this.commonProp = this.getCommonProp(args);
+    return this.view();
+  }
 
-    return (
+  view(){
+    return(
       <ErrorBoundary>
         <Portal>
           <Toast
-            toasts={toasts}
-            commonProp={this.getCommonProp(args)}
+            toasts={this.toasts}
+            commonProp={this.commonProp}
           />
         </Portal>
       </ErrorBoundary>
-    );
+    )
   }
 }
 
