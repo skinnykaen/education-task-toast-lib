@@ -1,4 +1,6 @@
-import { toast } from "../ToastService/ToastService";
+import React from "react";
+import toast from "../service/ToastClass";
+import {App} from '../App';
 
 export default {
   title: 'Toast',
@@ -6,18 +8,16 @@ export default {
   argTypes: {
     type: {
       description: 'Type of toast',
+      type: { required: true },
       defaultValue: 'info',
-      control: {
-        type: 'inline-radio',
-        options: ['success', 'error', 'info', 'warning'],
-      },
+      options: ['success', 'error', 'info', 'warning'],
+      control: { type: 'inline-radio'},
     },
     position: {
+      type: { required: true },
       defaultValue: 'bottom-right',
-      control: {
-        type: 'inline-radio',
-        options: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
-      }
+      options: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
+      control: { type: 'inline-radio'}
     },
     autoDelete: {
       control: {
@@ -56,10 +56,9 @@ export default {
       }
     },
     animation: {
+      options: ['from-top', 'from-bottom', 'in-left', 'in-right'],
       control: {
-        type: 'inline-radio',
-        options: ['from-top', 'from-bottom', 'in-left', 'in-right'],
-      },
+        type: 'inline-radio'},
     },
     icon: {
       control: {
@@ -69,7 +68,8 @@ export default {
   }
 };
 
-export const ToastDefault = (args) => toast.add(args)
+// export const ToastDefault = (args) => toast.addToast(args)
+export const ToastDefault = (args) => <App {...args} />
 
 ToastDefault.args = {
   type: 'info',

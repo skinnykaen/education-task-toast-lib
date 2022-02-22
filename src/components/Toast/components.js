@@ -4,10 +4,10 @@ export const ToastContainer = styled.div`
     position: fixed;
     z-index: 999999;
 
-    top: ${({ common }) => common.positionObj.top};
-    bottom: ${({ common }) => common.positionObj.bottom};
-    right: ${({ common }) => common.positionObj.right};
-    left: ${({ common }) => common.positionObj.left};
+    top: ${({ commonProp }) => commonProp.positionObj.top};
+    bottom: ${({ commonProp }) => commonProp.positionObj.bottom};
+    right: ${({ commonProp }) => commonProp.positionObj.right};
+    left: ${({ commonProp }) => commonProp.positionObj.left};
 `
 export const ToastWrapper = styled.div`
     margin: 5%; 
@@ -18,13 +18,13 @@ export const ToastWrapper = styled.div`
 
     position: relative;
 
-    top: ${({ common }) => common.positionObj.top};
-    bottom: ${({ common }) => common.positionObj.bottom};
-    right: ${({ common }) => common.positionObj.right};
-    left: ${({ common }) => common.positionObj.left};
+    top: ${({ toast }) => toast.positionObj.top};
+    bottom: ${({ toast }) => toast.positionObj.bottom};
+    right: ${({ toast }) => toast.positionObj.right};
+    left: ${({ toast }) => toast.positionObj.left};
 
     transition: transform 0.6s ease-in;
-    animation: '${({ common }) => common.animation}' 0.7s;
+    animation: '${({ toast }) => toast.animation}' 0.7s;
 
     @keyframes from-top {
         from {
@@ -70,10 +70,10 @@ export const ToastContent = styled.div`
     wigth: 100%;
     height: 100%;
 
-    padding: ${({ common }) => common.padding};
-    background-color: ${({ toast }) => toast.BACKGROUND_COLOR};
+    padding: ${({ toast }) => toast.padding};
+    background-color: ${({ toast }) => toast.background_color};
     border-radius: 10px;
-    color: ${({ toast }) => toast.TEXT_COLOR};
+    color: ${({ toast }) => toast.text_color};
     transition: transform 0.6s ease-in-out;
 `
 
