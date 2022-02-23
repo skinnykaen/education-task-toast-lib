@@ -1,7 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
-import closeIcon from './../../assets/close_icon.png'
+import closeIcon from './../../assets/close_icon.png';
+import Draggable from 'react-draggable';
 
 import toast from './../../service/ToastClass';
 
@@ -15,7 +16,7 @@ import {
   CloseButton,
 } from "./components";
 
-const Toast = ({toasts, commonProp}) => {
+const Toast = ({ toasts, commonProp }) => {
   const [toastItems, setToasts] = useState(toasts);
   useEffect(() => {
     setToasts([...toasts]);
@@ -44,22 +45,24 @@ const Toast = ({toasts, commonProp}) => {
     <ToastContainer commonProp={commonProp}>
       {
         toastItems.map((toast, i) => {
-            return (
-                <ToastWrapper data-cy={'wrapper'} commonProp={commonProp} key={toast.id}>
-                    <TypeHeading data-cy={toast.type}>{toast.type + toast.heading}</TypeHeading>
-                    <ToastContent toast={toast}>
-                    <ToastDescription>
-                        <ToastImage toast={toast}>
-                        <img src={toast.icon} />
-                        </ToastImage>
-                        {toast.type + toast.description}
-                    </ToastDescription>
-                    <CloseButton data-cy={'closeIcon'+toast.type} onClick={() => { deleteToast(toast.id) }}>
-                        <img src={closeIcon} alt='close' />
-                    </CloseButton>
-                    </ToastContent>
-                </ToastWrapper>
-            )
+          return (
+            <Draggable axis="x" key={i} onStop={()=>{deleteToast(toast.id)}}>
+              <ToastWrapper data-cy={'wrapper'} commonProp={commonProp} key={toast.id}>
+                <TypeHeading data-cy={toast.type}>{toast.type + toast.heading}</TypeHeading>
+                <ToastContent toast={toast}>
+                  <ToastDescription>
+                    <ToastImage toast={toast}>
+                      <img src={toast.icon} />
+                    </ToastImage>
+                    {toast.type + toast.description}
+                  </ToastDescription>
+                  <CloseButton data-cy={'closeIcon' + toast.type} onClick={() => { deleteToast(toast.id) }}>
+                    <img src={closeIcon} alt='close' />
+                  </CloseButton>
+                </ToastContent>
+              </ToastWrapper>
+            </Draggable>
+          )
         })
       }
     </ToastContainer>
@@ -69,6 +72,6 @@ const Toast = ({toasts, commonProp}) => {
 export default Toast;
 
 Toast.propTypes = {
-    toasts: PropTypes.array.isRequired,
-    commonProp: PropTypes.object,
+  toasts: PropTypes.array.isRequired,
+  commonProp: PropTypes.object,
 };
