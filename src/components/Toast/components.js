@@ -18,13 +18,13 @@ export const ToastWrapper = styled.div`
 
     position: relative;
 
-    top: ${({ toast }) => toast.positionObj.top};
-    bottom: ${({ toast }) => toast.positionObj.bottom};
-    right: ${({ toast }) => toast.positionObj.right};
-    left: ${({ toast }) => toast.positionObj.left};
+    top: ${({ commonProp }) => commonProp.positionObj.top};
+    bottom: ${({ commonProp }) => commonProp.positionObj.bottom};
+    right: ${({ commonProp }) => commonProp.positionObj.right};
+    left: ${({ commonProp }) => commonProp.positionObj.left};
 
     transition: transform 0.6s ease-in;
-    animation: '${({ toast }) => toast.animation}' 0.7s;
+    animation: '${({ commonProp }) => commonProp.animation}' 0.7s;
 
     @keyframes from-top {
         from {

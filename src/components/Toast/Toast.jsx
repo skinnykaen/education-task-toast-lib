@@ -45,8 +45,8 @@ const Toast = ({toasts, commonProp}) => {
       {
         toastItems.map((toast, i) => {
             return (
-                <ToastWrapper toast={toast} key={toast.id}>
-                    <TypeHeading>{toast.type + toast.heading}</TypeHeading>
+                <ToastWrapper data-cy={'wrapper'} commonProp={commonProp} key={toast.id}>
+                    <TypeHeading data-cy={toast.type}>{toast.type + toast.heading}</TypeHeading>
                     <ToastContent toast={toast}>
                     <ToastDescription>
                         <ToastImage toast={toast}>
@@ -54,7 +54,7 @@ const Toast = ({toasts, commonProp}) => {
                         </ToastImage>
                         {toast.type + toast.description}
                     </ToastDescription>
-                    <CloseButton onClick={() => { deleteToast(toast.id) }}>
+                    <CloseButton data-cy={'closeIcon'+toast.type} onClick={() => { deleteToast(toast.id) }}>
                         <img src={closeIcon} alt='close' />
                     </CloseButton>
                     </ToastContent>

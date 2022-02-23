@@ -6,7 +6,7 @@ import replace from 'rollup-plugin-replace';
 import alias from '@rollup/plugin-alias';
 import path from 'path';
 import image from '@rollup/plugin-image';
-import external from 'rollup-plugin-peer-deps-external'
+import external from 'rollup-plugin-peer-deps-external';
 
 import react from 'react';
 import reactDom from 'react-dom';
@@ -53,15 +53,6 @@ export default {
             exclude: './node_modules/**',
             plugins: ['babel-plugin-styled-components']
         }),
-        alias(
-            {
-                resolve: ['*', '.js', '.jsx'],
-                entries: [{
-                    find: '@',
-                    replacement: path.resolve(root, './src'),
-                }]
-            }
-        ),
         external(),
         (env === 'production')
     ]
